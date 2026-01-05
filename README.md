@@ -1,53 +1,326 @@
-# Getting Started with Create React App
+# 🎓 AI Examiner - Automated Answer Evaluation System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An intelligent examination system that uses AI to automatically evaluate student answers against model answers, providing detailed feedback, marks, and suggestions for improvement.
 
-## Available Scripts
+[![React](https://img.shields.io/badge/React-19.2.3-blue.svg)](https://reactjs.org/)
+[![Flask](https://img.shields.io/badge/Flask-3.0-green.svg)](https://flask.palletsprojects.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-7.0-green.svg)](https://www.mongodb.com/)
+[![Google Gemini](https://img.shields.io/badge/Google%20Gemini-AI-orange.svg)](https://ai.google.dev/)
 
-In the project directory, you can run:
+## 📋 Table of Contents
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [API Endpoints](#api-endpoints)
+- [Contributing](#contributing)
+- [License](#license)
 
-### `npm start`
+## ✨ Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Core Functionality
+- 🤖 **AI-Powered Evaluation**: Uses Google Gemini AI for intelligent answer assessment
+- 📄 **PDF Support**: Upload and process PDF documents for model and student answers
+- 🔍 **OCR Integration**: Extract handwritten text from images using EasyOCR
+- 📊 **Detailed Analysis**: Get comprehensive feedback with strengths and improvement areas
+- 📈 **Grading System**: Automatic grade assignment based on percentage scores
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Management Features
+- 👨‍🏫 **Teacher Management**: Add, view, and manage teacher profiles
+- 👨‍🎓 **Student Management**: Maintain student records with roll numbers and classes
+- 📝 **Evaluation History**: Track all evaluations with filtering and search capabilities
+- 📥 **Export to PDF**: Download evaluation reports in professional PDF format
+- 🗑️ **Delete Evaluations**: Remove unwanted evaluation records
 
-### `npm test`
+### User Interface
+- 🎨 **Modern UI**: Beautiful, responsive design with gradient themes
+- 🌙 **Dark Mode**: Eye-friendly dark theme interface
+- 📱 **Responsive**: Works seamlessly on desktop, tablet, and mobile devices
+- ⚡ **Real-time Updates**: Live feedback during evaluation process
+- 🔍 **Advanced Filters**: Filter evaluations by student, teacher, date, and more
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🛠️ Tech Stack
 
-### `npm run build`
+### Frontend
+- **React 19.2.3** - UI framework
+- **React Router DOM** - Navigation and routing
+- **Axios** - HTTP client for API requests
+- **React Icons** - Icon library
+- **CSS3** - Modern styling with animations
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Backend
+- **Flask** - Python web framework
+- **MongoDB** - NoSQL database
+- **Google Gemini AI** - AI model for evaluation
+- **EasyOCR** - Optical character recognition
+- **PyMongo** - MongoDB driver for Python
+- **pdf2image** - PDF to image conversion
+- **Flask-CORS** - Cross-origin resource sharing
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### AI & Processing
+- **Google Generative AI (Gemini)** - Natural language processing and evaluation
+- **EasyOCR** - Handwritten text extraction
+- **Poppler** - PDF processing utilities
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🏗️ Architecture
 
-### `npm run eject`
+```
+┌─────────────┐         ┌──────────────┐         ┌─────────────┐
+│   React     │────────▶│   Flask API  │────────▶│   MongoDB   │
+│   Frontend  │◀────────│   Backend    │◀────────│   Database  │
+└─────────────┘         └──────────────┘         └─────────────┘
+                               │
+                               ▼
+                        ┌──────────────┐
+                        │  Gemini AI   │
+                        │  + EasyOCR   │
+                        └──────────────┘
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 📦 Installation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Prerequisites
+- Node.js (v16 or higher)
+- Python 3.8+
+- MongoDB (local or cloud instance)
+- Google Gemini API Key
+- Poppler (for PDF processing)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 1. Clone the Repository
+```bash
+git clone https://github.com/yourusername/ai-examiner.git
+cd ai-examiner
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 2. Backend Setup
 
-## Learn More
+```bash
+# Navigate to backend directory
+cd backend
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Create virtual environment
+python -m venv venv
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Activate virtual environment
+# On Windows:
+venv\Scripts\activate
+# On macOS/Linux:
+source venv/bin/activate
 
-### Code Splitting
+# Install dependencies
+pip install -r requirement.txt
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 3. Frontend Setup
+
+```bash
+# Navigate to frontend directory
+cd frontend
+
+# Install dependencies
+npm install
+```
+
+### 4. Install Poppler (for PDF processing)
+
+**Windows:**
+- Download from: https://github.com/oschwartz10612/poppler-windows/releases
+- Add to PATH environment variable
+
+**macOS:**
+```bash
+brew install poppler
+```
+
+**Linux:**
+```bash
+sudo apt-get install poppler-utils
+```
+
+## ⚙️ Configuration
+
+### Backend Configuration
+
+Update `config.py` file in the `backend` directory:
+
+```python
+import os
+
+class Config:
+    # MongoDB Configuration
+    MONGO_URI = "mongodb://localhost:27017/"
+    DATABASE_NAME = "ai_examiner"
+    
+    # Google Gemini API
+    GEMINI_API_KEY = "your-gemini-api-key-here"
+    
+    # File Upload Configuration
+    UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'uploads')
+    MAX_FILE_SIZE = 16 * 1024 * 1024  # 16MB
+    ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg'}
+```
+
+### Frontend Configuration
+
+Update API URL in `frontend/src/services/api.js` if needed:
+
+```javascript
+const API_BASE_URL = 'http://localhost:5000/api';
+```
+
+## 🚀 Usage
+
+### Starting the Backend Server
+
+```bash
+cd backend
+python app.py
+```
+
+The backend server will start at `http://localhost:5000`
+
+### Starting the Frontend Development Server
+
+```bash
+cd frontend
+npm start
+```
+
+The frontend will start at `http://localhost:3000`
+
+### Using the Application
+
+1. **Add Teachers and Students**
+   - Navigate to Management page
+   - Add teacher profiles with name, email, and subject
+   - Add student profiles with name, email, roll number, and class
+
+2. **Evaluate Answers**
+   - Go to Evaluate page
+   - Upload model answer PDF or paste text
+   - Select teacher and student
+   - Upload student answer PDF
+   - Enter maximum marks
+   - Click "Evaluate" to get AI-powered results
+
+3. **View History**
+   - Access Evaluation History page
+   - Filter by student name, roll number, teacher, or date
+   - View detailed evaluations
+   - Download reports as PDF
+   - Delete old evaluations
+
+4. **Dashboard**
+   - View statistics of teachers and students
+   - Quick access to all features
+
+## 📁 Project Structure
+
+```
+ai-examiner/
+├── backend/
+│   ├── app.py                 # Main Flask application
+│   ├── config.py              # Configuration settings
+│   ├── requirement.txt        # Python dependencies
+│   ├── models/
+│   │   ├── evaluation.py      # Evaluation data model
+│   │   ├── student.py         # Student data model
+│   │   └── teacher.py         # Teacher data model
+│   └── utils/
+│       ├── db_connection.py   # MongoDB connection
+│       ├── gemini_service.py  # AI evaluation service
+│       ├── pdf_processor.py   # PDF processing utilities
+│       └── init.py
+│
+├── frontend/
+│   ├── public/
+│   │   └── index.html
+│   ├── src/
+│   │   ├── App.js             # Main React component
+│   │   ├── App.css            # Global styles
+│   │   ├── components/
+│   │   │   └── Navigation.jsx # Navigation bar
+│   │   ├── pages/
+│   │   │   ├── Dashboard.jsx  # Dashboard page
+│   │   │   ├── Evaluate.jsx   # Evaluation page
+│   │   │   ├── EvaluationHistory.jsx
+│   │   │   ├── Management.jsx # Management page
+│   │   │   └── Results.jsx    # Results page
+│   │   ├── services/
+│   │   │   └── api.js         # API service layer
+│   │   └── index.js
+│   └── package.json           # Node dependencies
+│
+└── README.md                  # This file
+```
+
+## 🔌 API Endpoints
+
+### Teachers
+- `POST /api/teachers` - Create new teacher
+- `GET /api/teachers` - Get all teachers
+- `GET /api/teachers/:id` - Get teacher by ID
+- `DELETE /api/teachers/:id` - Delete teacher
+
+### Students
+- `POST /api/students` - Create new student
+- `GET /api/students` - Get all students
+- `GET /api/students/:id` - Get student by ID
+- `DELETE /api/students/:id` - Delete student
+
+### Evaluations
+- `POST /api/upload-model-answer` - Upload model answer PDF
+- `POST /api/evaluate-answer` - Evaluate student answer
+- `GET /api/evaluations` - Get all evaluations
+- `GET /api/evaluations/:id` - Get evaluation by ID
+- `DELETE /api/evaluations/:id` - Delete evaluation
+
+### Health Check
+- `GET /api/health` - Check API and database status
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License.
+
+## 🙏 Acknowledgments
+
+- Google Gemini AI for powerful natural language processing
+- MongoDB for reliable data storage
+- React community for excellent documentation
+- All contributors and testers
+
+## 🔮 Future Enhancements
+
+- [ ] Multi-language support
+- [ ] Batch evaluation of multiple students
+- [ ] Analytics dashboard with charts
+- [ ] Email notifications
+- [ ] Mobile app
+- [ ] LMS integration
+- [ ] Support for more file formats
+
+## ⚠️ Known Issues
+
+- Large PDF files (>10MB) may take longer to process
+- Handwritten text recognition accuracy depends on handwriting clarity
+- Requires stable internet connection for AI evaluation
+
+---
+
+Made with ❤️ by the AI Examiner Team
 
 ### Analyzing the Bundle Size
 
