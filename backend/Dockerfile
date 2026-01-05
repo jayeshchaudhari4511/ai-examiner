@@ -1,10 +1,23 @@
 FROM python:3.11-slim
 
-# Install system dependencies for Poppler and EasyOCR
-RUN apt-get update && apt-get install -y \
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install system dependencies
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get update -y && \
+    apt-get install -y --no-install-recommends \
     poppler-utils \
-    libgl1-mesa-glx \
+    libgl1 \
     libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    libgomp1 \
+    wget \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
@@ -14,7 +27,8 @@ WORKDIR /app
 COPY requirement.txt .
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirement.txt
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirement.txt
 
 # Copy application code
 COPY . .
@@ -24,10 +38,6 @@ RUN mkdir -p uploads
 
 # Expose port
 EXPOSE 5000
-
-# Set environment variables
-ENV FLASK_APP=app.py
-ENV PYTHONUNBUFFERED=1
 
 # Run the application
 CMD ["python", "app.py"]
