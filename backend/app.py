@@ -461,11 +461,8 @@ if __name__ == '__main__':
     if not os.path.exists(Config.UPLOAD_FOLDER):
         os.makedirs(Config.UPLOAD_FOLDER)
     
-    # Get port from environment variable (for Render, Railway, etc.)
-    port = int(os.environ.get('PORT', 5000))
-    
     try:
-        app.run(debug=False, host='0.0.0.0', port=port)
+        app.run(debug=True, host='0.0.0.0', port=5000)
     finally:
         # Close database connection on shutdown
         db_connection.close()

@@ -39,5 +39,5 @@ RUN mkdir -p uploads
 # Expose port
 EXPOSE 5000
 
-# Run the application with gunicorn (production-ready)
-CMD gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 app:app
+# Run the application
+CMD ["python", "app.py"]
