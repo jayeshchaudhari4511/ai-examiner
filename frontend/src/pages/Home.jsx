@@ -125,7 +125,7 @@ const Home = () => {
           <Link to="/evaluate" className="btn btn-primary btn-lg btn-cta">
             Get Started Now
           </Link>
-          <p className="cta-note">Copyright &copy; 2024 AI Examiner. All rights reserved.</p>
+          <p className="cta-note">Copyright &copy; 2026 AI Examiner. All rights reserved.</p>
         </div>
       </section>
     </div>
