@@ -1,0 +1,17 @@
+services:
+  # Backend Service
+  - type: web
+    name: ai-examiner-backend
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: MONGO_URI
+        sync: false
+      - key: DATABASE_NAME
+        value: ai_examiner
+      - key: UPLOAD_FOLDER
+        value: /tmp/uploads
+    healthCheckPath: /api/health

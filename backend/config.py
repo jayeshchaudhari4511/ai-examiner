@@ -10,7 +10,7 @@ class Config:
     ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg'}
     
     # MongoDB Configuration
-    MONGO_URI = os.getenv('MONGO_URI', "mongodb+srv://jayesh6056_db_user:KkSnIm9BBRM6SEIk@cluster0.obqkbwe.mongodb.net/ai_examiner?retryWrites=true&w=majority&appName=Cluster0")
+    MONGO_URI = os.getenv('MONGO_URI')
     MONGO_DB_NAME = os.getenv('MONGO_DB_NAME', 'ai_examiner')  
     
     @staticmethod
