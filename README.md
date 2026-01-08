@@ -22,25 +22,25 @@ An intelligent examination system that uses AI to automatically evaluate student
 ## ✨ Features
 
 ### Core Functionality
-- 🤖 **AI-Powered Evaluation**: Uses Google Gemini AI for intelligent answer assessment
-- 📄 **PDF Support**: Upload and process PDF documents for model and student answers
-- 🔍 **OCR Integration**: Extract handwritten text from images using EasyOCR
-- 📊 **Detailed Analysis**: Get comprehensive feedback with strengths and improvement areas
-- 📈 **Grading System**: Automatic grade assignment based on percentage scores
+-  **AI-Powered Evaluation**: Uses Google Gemini AI for intelligent answer assessment
+-  **PDF Support**: Upload and process PDF documents for model and student answers
+-  **OCR Integration**: Extract handwritten text from images using EasyOCR
+-  **Detailed Analysis**: Get comprehensive feedback with strengths and improvement areas
+-  **Grading System**: Automatic grade assignment based on percentage scores
 
 ### Management Features
-- 👨‍🏫 **Teacher Management**: Add, view, and manage teacher profiles
-- 👨‍🎓 **Student Management**: Maintain student records with roll numbers and classes
-- 📝 **Evaluation History**: Track all evaluations with filtering and search capabilities
-- 📥 **Export to PDF**: Download evaluation reports in professional PDF format
-- 🗑️ **Delete Evaluations**: Remove unwanted evaluation records
+-  **Teacher Management**: Add, view, and manage teacher profiles
+-  **Student Management**: Maintain student records with roll numbers and classes
+-  **Evaluation History**: Track all evaluations with filtering and search capabilities
+-  **Export to PDF**: Download evaluation reports in professional PDF format
+-  **Delete Evaluations**: Remove unwanted evaluation records
 
 ### User Interface
-- 🎨 **Modern UI**: Beautiful, responsive design with gradient themes
-- 🌙 **Dark Mode**: Eye-friendly dark theme interface
-- 📱 **Responsive**: Works seamlessly on desktop, tablet, and mobile devices
-- ⚡ **Real-time Updates**: Live feedback during evaluation process
-- 🔍 **Advanced Filters**: Filter evaluations by student, teacher, date, and more
+-  **Modern UI**: Beautiful, responsive design with gradient themes
+-  **Dark Mode**: Eye-friendly dark theme interface
+-  **Responsive**: Works seamlessly on desktop, tablet, and mobile devices
+-  **Real-time Updates**: Live feedback during evaluation process
+-  **Advanced Filters**: Filter evaluations by student, teacher, date, and more
 
 ## 🛠️ Tech Stack
 
@@ -65,22 +65,8 @@ An intelligent examination system that uses AI to automatically evaluate student
 - **EasyOCR** - Handwritten text extraction
 - **Poppler** - PDF processing utilities
 
-## 🏗️ Architecture
 
-```
-┌─────────────┐         ┌──────────────┐         ┌─────────────┐
-│   React     │────────▶│   Flask API  │────────▶│   MongoDB   │
-│   Frontend  │◀────────│   Backend    │◀────────│   Database  │
-└─────────────┘         └──────────────┘         └─────────────┘
-                               │
-                               ▼
-                        ┌──────────────┐
-                        │  Gemini AI   │
-                        │  + EasyOCR   │
-                        └──────────────┘
-```
-
-## 📦 Installation
+##  Installation
 
 ### Prerequisites
 - Node.js (v16 or higher)
