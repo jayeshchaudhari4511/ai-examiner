@@ -24,11 +24,11 @@ RUN apt-get clean && \
 WORKDIR /app
 
 # Copy requirements first for better caching
-COPY requirement.txt .
+COPY requirements.txt .
 
 # Install Python dependencies
 RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirement.txt
+    pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY . .
