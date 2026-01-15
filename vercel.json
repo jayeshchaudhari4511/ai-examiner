@@ -1,5 +1,6 @@
 {
-  "buildCommand": "cd frontend && npm ci --prefer-offline --no-audit && npm run build",
-  "outputDirectory": "frontend/build",
-  "devCommand": "cd frontend && npm start"
+  "root": "frontend",
+  "buildCommand": "npm ci --prefer-offline --no-audit && npm run build",
+  "outputDirectory": "build",
+  "devCommand": "npm start"
 }
