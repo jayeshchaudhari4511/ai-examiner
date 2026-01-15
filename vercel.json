@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm --prefix frontend ci --prefer-offline --no-audit && npm --prefix frontend run build",
+  "buildCommand": "cd frontend && npm install && npm run build",
   "outputDirectory": "frontend/build",
-  "devCommand": "npm --prefix frontend start"
+  "devCommand": "cd frontend && npm start"
 }
