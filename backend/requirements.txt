@@ -10,3 +10,4 @@ flask-pymongo==2.3.0
 torch
 torchvision
 easyocr==1.7.0
+gunicorn==21.2.0

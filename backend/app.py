@@ -15,7 +15,14 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-CORS(app)
+
+# Configure CORS for both development and production
+cors_origins = [
+    'http://localhost:3000',  # Local development
+    'http://localhost:5000',
+    os.getenv('FRONTEND_URL', 'http://localhost:3000')  # Production Vercel URL
+]
+CORS(app, origins=cors_origins)
 
 # Configuration
 app.config['UPLOAD_FOLDER'] = Config.UPLOAD_FOLDER
