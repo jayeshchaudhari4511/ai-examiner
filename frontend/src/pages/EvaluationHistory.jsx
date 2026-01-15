@@ -5,7 +5,6 @@ import { getEvaluations, deleteEvaluation } from '../services/api';
 import '../pages/EvaluationHistory.css';
 
 function EvaluationHistory() {
-  const navigate = useNavigate();
   const [evaluations, setEvaluations] = useState([]);
   const [filteredEvaluations, setFilteredEvaluations] = useState([]);
   const [loading, setLoading] = useState(true);

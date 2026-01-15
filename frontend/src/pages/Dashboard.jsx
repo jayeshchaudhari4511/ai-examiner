@@ -12,10 +12,6 @@ const Dashboard = ({ setLoading }) => {
   const [teachers, setTeachers] = useState([]);
   const [students, setStudents] = useState([]);
 
-  useEffect(() => {
-    loadDashboardData();
-  }, []);
-
   const loadDashboardData = async () => {
     try {
       setLoading(true, 'Loading dashboard data...');
@@ -38,6 +34,10 @@ const Dashboard = ({ setLoading }) => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    loadDashboardData();
+  }, [setLoading]);
 
   return (
     <div className="dashboard">

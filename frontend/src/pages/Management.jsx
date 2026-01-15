@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FiTrash2, FiPlus, FiEdit2 } from 'react-icons/fi';
+import { FiTrash2, FiPlus } from 'react-icons/fi';
 import { getAllTeachers, createTeacher, getAllStudents, createStudent, deleteTeacher, deleteStudent } from '../services/api';
 import './Management.css';
 
@@ -17,7 +17,7 @@ const Management = ({ setLoading }) => {
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [setLoading]);
 
   const loadData = async () => {
     try {
