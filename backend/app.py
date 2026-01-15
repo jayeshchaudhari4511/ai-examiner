@@ -46,6 +46,15 @@ def serialize_doc(doc):
         return doc
     return doc
 
+@app.route('/', methods=['GET'])
+def root():
+    """Root endpoint - API info"""
+    return jsonify({
+        'message': 'AI Examiner API',
+        'version': '1.0',
+        'health_check': '/api/health'
+    })
+
 @app.route('/api/health', methods=['GET'])
 def health_check():
     """Health check endpoint"""
