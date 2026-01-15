@@ -464,11 +464,24 @@ def ocr_only():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
+    # Validate required environment variables
+    required_vars = ['GEMINI_API_KEY', 'MONGO_URI']
+    missing_vars = [var for var in required_vars if not os.getenv(var)]
+    
+    if missing_vars:
+        logger.error(f"Missing required environment variables: {', '.join(missing_vars)}")
+        raise RuntimeError(f"Missing environment variables: {', '.join(missing_vars)}")
+    
     # Create uploads folder if it doesn't exist
     if not os.path.exists(Config.UPLOAD_FOLDER):
         os.makedirs(Config.UPLOAD_FOLDER)
     
     try:
+        # Test database connection on startup
+        logger.info("Testing database connection...")
+        db_connection.connect()
+        logger.info("Database connection successful")
+        
         app.run(debug=True, host='0.0.0.0', port=5000)
     finally:
         # Close database connection on shutdown

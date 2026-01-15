@@ -27,6 +27,13 @@ class DatabaseConnection:
             
         try:
             logger.info("Attempting to connect to MongoDB...")
+            
+            # Validate MONGO_URI
+            if not Config.MONGO_URI:
+                raise ValueError("MONGO_URI not found in environment variables")
+            
+            logger.info(f"Using MongoDB URI: {Config.MONGO_URI[:50]}...")
+            
             self._client = MongoClient(
                 Config.MONGO_URI,
                 serverSelectionTimeoutMS=5000,
