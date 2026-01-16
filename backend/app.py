@@ -310,11 +310,19 @@ def evaluate_answer():
             app.config['UPLOAD_FOLDER']
         )
         
-        # Convert PDF to images
-        images = pdf_processor.convert_pdf_to_images(student_file_path)
-        
-        # Extract handwritten text using EasyOCR
-        student_text = pdf_processor.extract_text_from_images(images)
+        # Try text extraction first (instant)
+        logger.info("Attempting text extraction...")
+        try:
+            student_text = pdf_processor.extract_text_from_pdf(student_file_path)
+            if len(student_text.strip()) < 100:
+                # Not enough text extracted, use Gemini vision
+                logger.info("Insufficient text from extraction, using Gemini vision API...")
+                images = pdf_processor.convert_pdf_to_images(student_file_path, max_pages=5)
+                student_text = pdf_processor.extract_text_from_images_via_gemini(images, gemini_service)
+        except Exception as extract_error:
+            logger.warning(f"Text extraction failed: {str(extract_error)}, using Gemini vision...")
+            images = pdf_processor.convert_pdf_to_images(student_file_path, max_pages=5)
+            student_text = pdf_processor.extract_text_from_images_via_gemini(images, gemini_service)
         
         # Evaluate using Gemini
         evaluation_result = gemini_service.evaluate_answer(

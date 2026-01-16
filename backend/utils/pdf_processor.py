@@ -3,11 +3,12 @@ from pdf2image import convert_from_path
 from PyPDF2 import PdfReader
 from PIL import Image
 import tempfile
-import easyocr
 import numpy as np
 import logging
 import platform
 import gc
+import base64
+from io import BytesIO
 
 logger = logging.getLogger(__name__)
 
@@ -18,17 +19,6 @@ if platform.system() == 'Windows':
     POPPLER_PATH = r"C:\Users\Jayesh\poppler\poppler-23.08.0\Library\bin"
 
 class PDFProcessor:
-    # Initialize EasyOCR reader (will be created once and reused)
-    _ocr_reader = None
-    
-    @classmethod
-    def get_ocr_reader(cls):
-        """Get or create EasyOCR reader instance"""
-        if cls._ocr_reader is None:
-            logger.info("Initializing EasyOCR reader...")
-            cls._ocr_reader = easyocr.Reader(['en'], gpu=False)
-            logger.info("EasyOCR reader initialized")
-        return cls._ocr_reader
     @staticmethod
     def extract_text_from_pdf(pdf_path):
         """Extract plain text from PDF (for model answers)"""
@@ -40,6 +30,69 @@ class PDFProcessor:
             return text.strip()
         except Exception as e:
             raise Exception(f"Error extracting text from PDF: {str(e)}")
+    
+    @staticmethod
+    def convert_pdf_to_images(pdf_path, max_pages=5):
+        """Convert PDF to images for Gemini vision API (limited to first 5 pages)"""
+        try:
+            logger.info(f"Converting PDF to images: {pdf_path}")
+            # Very low DPI for speed - Gemini can read low-res images fine
+            if POPPLER_PATH:
+                images = convert_from_path(pdf_path, dpi=50, poppler_path=POPPLER_PATH, last_page=max_pages)
+            else:
+                images = convert_from_path(pdf_path, dpi=50, last_page=max_pages)
+            
+            logger.info(f"Converted {len(images)} pages to images")
+            return images
+        except Exception as e:
+            raise Exception(f"Error converting PDF to images: {str(e)}")
+    
+    @staticmethod
+    def extract_text_from_images_via_gemini(images, gemini_service):
+        """Use Gemini vision API to extract text from images (much faster than EasyOCR)"""
+        try:
+            logger.info(f"Extracting text from {len(images)} images using Gemini vision...")
+            extracted_text = ""
+            
+            for idx, image in enumerate(images):
+                try:
+                    logger.info(f"Processing page {idx + 1}/{len(images)} with Gemini vision...")
+                    
+                    # Convert PIL image to bytes for Gemini
+                    img_byte_arr = BytesIO()
+                    image.save(img_byte_arr, format='JPEG', quality=70, optimize=True)
+                    img_byte_arr.seek(0)
+                    img_base64 = base64.standard_b64encode(img_byte_arr.getvalue()).decode()
+                    
+                    # Use Gemini vision to extract text
+                    response = gemini_service.model.generate_content([
+                        "Extract all text from this image. Include handwritten and typed text. Return ONLY the extracted text, nothing else.",
+                        {
+                            "mime_type": "image/jpeg",
+                            "data": img_base64
+                        }
+                    ])
+                    
+                    page_text = response.text.strip() if response.text else "[No text detected]"
+                    extracted_text += f"\n--- Page {idx + 1} ---\n{page_text}\n"
+                    
+                    # Cleanup
+                    del image
+                    del img_byte_arr
+                    gc.collect()
+                    
+                except Exception as page_error:
+                    logger.warning(f"Error processing page {idx + 1}: {str(page_error)}")
+                    extracted_text += f"\n--- Page {idx + 1} ---\n[Error: {str(page_error)}]\n"
+                    gc.collect()
+                    continue
+            
+            logger.info("Gemini vision extraction completed")
+            return extracted_text.strip()
+            
+        except Exception as e:
+            logger.error(f"Error extracting text via Gemini: {str(e)}")
+            raise Exception(f"Error extracting text from images: {str(e)}")
     
     @staticmethod
     def convert_pdf_to_images(pdf_path):
