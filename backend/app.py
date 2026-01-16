@@ -466,8 +466,7 @@ def ocr_only():
         
         # Save and process file
         file_path = pdf_processor.save_uploaded_file(file, app.config['UPLOAD_FOLDER'])
-        images = pdf_processor.convert_pdf_to_images(file_path)
-        extracted_text = pdf_processor.extract_text_from_images(images)
+        extracted_text = pdf_processor.extract_text_from_pdf(file_path)
         
         # Clean up
         os.remove(file_path)

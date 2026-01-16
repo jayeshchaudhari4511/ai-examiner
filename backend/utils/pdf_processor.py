@@ -94,23 +94,6 @@ class PDFProcessor:
             logger.error(f"Error extracting text via Gemini: {str(e)}")
             raise Exception(f"Error extracting text from images: {str(e)}")
     
-    @staticmethod
-    def convert_pdf_to_images(pdf_path):
-        """Convert PDF pages to images for OCR - limit to first 10 pages"""
-        try:
-            logger.info(f"Converting PDF to images: {pdf_path}")
-            # Reduced DPI to 75 for memory efficiency
-            # Limit to first 10 pages to avoid memory issues
-            if POPPLER_PATH:
-                all_images = convert_from_path(pdf_path, dpi=75, poppler_path=POPPLER_PATH, last_page=10)
-            else:
-                all_images = convert_from_path(pdf_path, dpi=75, last_page=10)
-            
-            logger.info(f"Converted {len(all_images)} pages to images (limited to 10)")
-            return all_images
-        except Exception as e:
-            raise Exception(f"Error converting PDF to images: {str(e)}")
-    
     @classmethod
     def extract_text_from_images(cls, images):
         """Extract text from images using EasyOCR with memory optimization"""
