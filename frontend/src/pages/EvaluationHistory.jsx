@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { FiEye, FiDownload, FiX, FiChevronDown, FiTrash2 } from 'react-icons/fi';
 import { getEvaluations, deleteEvaluation } from '../services/api';
 import '../pages/EvaluationHistory.css';
@@ -59,6 +58,7 @@ function EvaluationHistory() {
 
   useEffect(() => {
     applyFilters();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchStudent, searchRollNo, selectedTeacher, dateFilter, evaluations]);
 
   const applyFilters = () => {

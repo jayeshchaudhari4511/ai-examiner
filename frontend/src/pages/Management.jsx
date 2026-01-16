@@ -17,7 +17,8 @@ const Management = ({ setLoading }) => {
 
   useEffect(() => {
     loadData();
-  }, [setLoading]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const loadData = async () => {
     try {

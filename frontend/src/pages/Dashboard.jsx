@@ -37,7 +37,8 @@ const Dashboard = ({ setLoading }) => {
 
   useEffect(() => {
     loadDashboardData();
-  }, [setLoading]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="dashboard">
