@@ -45,12 +45,12 @@ class PDFProcessor:
         """Convert PDF pages to images for OCR"""
         try:
             logger.info(f"Converting PDF to images: {pdf_path}")
-            # Reduced DPI from 150 to 100 to save memory
+            # Reduced DPI to 75 for memory efficiency
             # On Linux/Railway, poppler-utils is in PATH, no need to specify poppler_path
             if POPPLER_PATH:
-                images = convert_from_path(pdf_path, dpi=100, poppler_path=POPPLER_PATH)
+                images = convert_from_path(pdf_path, dpi=75, poppler_path=POPPLER_PATH)
             else:
-                images = convert_from_path(pdf_path, dpi=100)
+                images = convert_from_path(pdf_path, dpi=75)
             logger.info(f"Converted {len(images)} pages to images")
             return images
         except Exception as e:
@@ -67,8 +67,10 @@ class PDFProcessor:
             for idx, image in enumerate(images):
                 logger.info(f"Processing page {idx + 1}/{len(images)}...")
                 
-                # Resize image to 50% to save memory (still readable for OCR)
-                resized_image = image.resize((image.width // 2, image.height // 2), Image.Resampling.LANCZOS)
+                # Resize image to 30% of original to save memory (still readable for OCR)
+                new_width = max(int(image.width * 0.3), 300)  # Minimum 300px width
+                new_height = int(image.height * 0.3)
+                resized_image = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
                 
                 # Convert PIL Image to numpy array for EasyOCR
                 img_array = np.array(resized_image)
@@ -79,6 +81,10 @@ class PDFProcessor:
                 # Combine results
                 page_text = "\n".join(results) if results else "[No text detected]"
                 extracted_text += f"\n--- Page {idx + 1} ---\n{page_text}\n"
+                
+                # Explicitly delete to free memory
+                del resized_image
+                del img_array
             
             logger.info("Text extraction completed")
             return extracted_text.strip()
