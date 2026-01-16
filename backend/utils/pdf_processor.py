@@ -45,12 +45,12 @@ class PDFProcessor:
         """Convert PDF pages to images for OCR"""
         try:
             logger.info(f"Converting PDF to images: {pdf_path}")
-            # Reduced DPI from 300 to 150 for faster processing
+            # Reduced DPI from 150 to 100 to save memory
             # On Linux/Railway, poppler-utils is in PATH, no need to specify poppler_path
             if POPPLER_PATH:
-                images = convert_from_path(pdf_path, dpi=150, poppler_path=POPPLER_PATH)
+                images = convert_from_path(pdf_path, dpi=100, poppler_path=POPPLER_PATH)
             else:
-                images = convert_from_path(pdf_path, dpi=150)
+                images = convert_from_path(pdf_path, dpi=100)
             logger.info(f"Converted {len(images)} pages to images")
             return images
         except Exception as e:
@@ -66,8 +66,12 @@ class PDFProcessor:
             
             for idx, image in enumerate(images):
                 logger.info(f"Processing page {idx + 1}/{len(images)}...")
+                
+                # Resize image to 50% to save memory (still readable for OCR)
+                resized_image = image.resize((image.width // 2, image.height // 2), Image.Resampling.LANCZOS)
+                
                 # Convert PIL Image to numpy array for EasyOCR
-                img_array = np.array(image)
+                img_array = np.array(resized_image)
                 
                 # Perform OCR with optimized parameters for speed
                 results = reader.readtext(img_array, detail=0, paragraph=False)
