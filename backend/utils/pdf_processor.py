@@ -6,11 +6,15 @@ import tempfile
 import easyocr
 import numpy as np
 import logging
+import platform
 
 logger = logging.getLogger(__name__)
 
-# Set Poppler path for Windows
-POPPLER_PATH = r"C:\Users\Jayesh\poppler\poppler-23.08.0\Library\bin"
+# Set Poppler path only for Windows development
+POPPLER_PATH = None
+if platform.system() == 'Windows':
+    # Local development path
+    POPPLER_PATH = r"C:\Users\Jayesh\poppler\poppler-23.08.0\Library\bin"
 
 class PDFProcessor:
     # Initialize EasyOCR reader (will be created once and reused)
@@ -42,7 +46,11 @@ class PDFProcessor:
         try:
             logger.info(f"Converting PDF to images: {pdf_path}")
             # Reduced DPI from 300 to 150 for faster processing
-            images = convert_from_path(pdf_path, dpi=150, poppler_path=POPPLER_PATH)
+            # On Linux/Railway, poppler-utils is in PATH, no need to specify poppler_path
+            if POPPLER_PATH:
+                images = convert_from_path(pdf_path, dpi=150, poppler_path=POPPLER_PATH)
+            else:
+                images = convert_from_path(pdf_path, dpi=150)
             logger.info(f"Converted {len(images)} pages to images")
             return images
         except Exception as e:
