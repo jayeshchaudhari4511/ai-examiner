@@ -24,7 +24,7 @@ An intelligent examination system that uses AI to automatically evaluate student
 ### Core Functionality
 -  **AI-Powered Evaluation**: Uses Google Gemini AI for intelligent answer assessment
 -  **PDF Support**: Upload and process PDF documents for model and student answers
--  **OCR Integration**: Extract handwritten text from images using EasyOCR
+-  **OCR Integration**: Extract handwritten text from images using gemini vision api 
 -  **Detailed Analysis**: Get comprehensive feedback with strengths and improvement areas
 -  **Grading System**: Automatic grade assignment based on percentage scores
 
@@ -55,14 +55,14 @@ An intelligent examination system that uses AI to automatically evaluate student
 - **Flask** - Python web framework
 - **MongoDB** - NoSQL database
 - **Google Gemini AI** - AI model for evaluation
-- **EasyOCR** - Optical character recognition
+- **gemini vision api** - Optical character recognition
 - **PyMongo** - MongoDB driver for Python
 - **pdf2image** - PDF to image conversion
 - **Flask-CORS** - Cross-origin resource sharing
 
 ### AI & Processing
 - **Google Generative AI (Gemini)** - Natural language processing and evaluation
-- **EasyOCR** - Handwritten text extraction
+- **gemini vision** - Handwritten text extraction
 - **Poppler** - PDF processing utilities
 
 
