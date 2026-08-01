@@ -1,0 +1,86 @@
+.admin-dashboard {
+  padding: 32px 16px;
+  background: #f8fafc;
+  min-height: calc(100vh - 80px);
+  color: #0f172a;
+}
+
+.admin-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  color: #0f172a;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.form-grid input {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  color: #0f172a;
+  background: #ffffff;
+}
+
+.alert {
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.alert.error {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.alert.success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.pending-list {
+  display: grid;
+  gap: 12px;
+}
+
+.pending-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+  color: #0f172a;
+}
+
+.subject-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  background: #f1f5f9;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.muted {
+  color: #64748b;
+  font-size: 13px;
+}

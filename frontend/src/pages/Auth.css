@@ -1,0 +1,118 @@
+:root {
+  --auth-bg: #f8fafc;
+  --auth-card: #ffffff;
+  --auth-border: #e2e8f0;
+  --auth-text: #0f172a;
+  --auth-muted: #64748b;
+}
+
+.auth-page {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, #e0f2fe 0%, #f8fafc 35%, #f1f5f9 100%);
+  padding: 40px 16px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--auth-card);
+  border: 1px solid var(--auth-border);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.1);
+}
+
+.auth-card h1 {
+  margin-bottom: 16px;
+  color: var(--auth-text);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-form label {
+  font-weight: 600;
+  color: var(--auth-text);
+}
+
+.auth-form input,
+.auth-form select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--auth-border);
+  font-size: 14px;
+  color: var(--auth-text);
+  background: #ffffff;
+}
+
+.auth-links {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--auth-text);
+}
+
+.auth-links a {
+  color: #0ea5e9;
+  text-decoration: none;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+}
+
+.auth-form input::placeholder,
+.auth-form select::placeholder {
+  color: var(--auth-muted);
+}
+
+.auth-error {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.auth-success {
+  background: #dcfce7;
+  color: #166534;
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.subject-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--auth-border);
+}
+
+.subject-item {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+  color: var(--auth-text);
+}
+
+.muted {
+  color: var(--auth-muted);
+  font-size: 13px;
+}
+
+.auth-card p,
+.auth-card small {
+  color: var(--auth-text);
+}
